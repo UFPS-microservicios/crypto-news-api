@@ -70,10 +70,10 @@ endpoints.get('/media', async(req, res)=> {
         filter[i]= {
        "author":datos[i].author ,
        "titulo":datos[i].title ,
-      // "contenido":datos[i].content,
+       "descripcion":datos[i].description,
        "url":datos[i].url 
    };
-   console.log(filter)
+   console.log(datos)
        }
   
    
@@ -85,3 +85,19 @@ endpoints.get('/media', async(req, res)=> {
     res.json({"mensaje":"no hay datos"})
  })
  
+ endpoints.get('/fx', async(req, res)=> {
+    let busqueda=req.params.busqueda
+     const urlAPI = `http://api.mediastack.com/v1/news?access_key=574bd6512d018b2de9d6e833ebefd665`;
+     const respuestaAPI = await axios.get(urlAPI)
+     const datos = await respuestaAPI.data.data
+ 
+     
+     console.log(datos)
+ 
+ 
+     if (datos && datos.length > 0){
+ res.json({datos})
+     }
+     else
+     res.json({"mensaje":"no hay datos"})
+ })
