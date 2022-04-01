@@ -1,7 +1,7 @@
 {
-  "name": "dockerejercicio",
+  "name": "mediastack",
   "version": "1.0.0",
-  "description": "Ejemplo docker",
+  "description": "mediaStack docker",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,5 +15,14 @@
     "express": "^4.17.3",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartinMedinaRuvian/dockerexample1.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/MartinMedinaRuvian/dockerexample1/issues"
+  },
+  "homepage": "https://github.com/MartinMedinaRuvian/dockerexample1#readme"
 }
