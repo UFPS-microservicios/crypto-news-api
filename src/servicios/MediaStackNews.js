@@ -170,3 +170,35 @@ module.exports = endpoints
 
 
  })
+ endpoints.post('/messages/news/send', async(req, res)=> {
+     
+
+   
+
+    const urlAPI = 'https://newsapi.org/v2/everything?q=Crypto&language=es&sortBy=popularity&apiKey=3b67b1606d934062b206f3f9e56307fb';
+    const respuestaAPI = await axios.get(urlAPI)
+    const datos = await respuestaAPI.data.articles
+
+    let filter=[1];
+
+        if(0<datos.length){
+       filter= {
+           "chat_id":10000,
+           "titulo":datos[0].title ,
+           ////"descripcion":datos[i].description,
+           "link":datos[0].url 
+      
+       }
+  };
+  console.log(filter) 
+   if (datos && datos.length > 0)
+   {
+   res.json({
+       "message":filter
+})
+   }
+   else
+   res.json({"mensaje":"no hay datos"})
+
+
+})
