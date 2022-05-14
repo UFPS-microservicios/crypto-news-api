@@ -183,7 +183,7 @@ module.exports = endpoints
 
         if(0<datos.length){
        filter= {
-           "chat_id":10000,
+           
            "titulo":datos[0].title ,
            ////"descripcion":datos[i].description,
            "link":datos[0].url 
@@ -196,9 +196,40 @@ module.exports = endpoints
    res.json({
        "message":filter
 })
+filter =JSON.stringify(filter);
+publishMessage(filter);
    }
    else
    res.json({"mensaje":"no hay datos"})
 
 
 })
+
+/**
+ * TODO(developer): Uncomment these variables before running the sample.
+ */
+// const topicNameOrId = 'YOUR_TOPIC_NAME_OR_ID';
+// const data = JSON.stringify({foo: 'bar'});
+
+// Imports the Google Cloud client library
+const {PubSub} = require('@google-cloud/pubsub');
+
+// Creates a client; cache this for further use
+const pubSubClient = new PubSub();
+GOOGLE_APPLICATION_CREDENTIALS = '.\cryptobot-345516-0047de703f40.json'
+async function publishMessage(messaging) {
+  // Publishes the message as a string, e.g. "Hello, world!" or JSON.stringify(someObject)
+  const dataBuffer = Buffer.from(messaging);
+
+  try {
+    const messageId = await pubSubClient
+      .topic("projects/cryptobot-345516/topics/crypto-topic")
+      .publishMessage({data:dataBuffer});
+    console.log(`Message ${messageId} published.`);
+  } catch (error) {
+    console.error(`Received error while publishing: ${error.message}`);
+    process.exitCode = 1;
+  }
+}
+
+
