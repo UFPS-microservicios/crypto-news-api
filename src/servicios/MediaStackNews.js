@@ -2,7 +2,7 @@ const express = require('express')
 const endpoints = express.Router()
 const axios = require('axios')
 const { response } = require('../server')
-
+const app = express();
 
 
 endpoints.get('/media/:busqueda', async(req, res)=> {
@@ -103,7 +103,7 @@ module.exports = endpoints
     res.json({"mensaje":"no hay datos"})
  })
  endpoints.get('/getNews/:chat_id', async(req, res)=> {
-     
+     console.log(req)
 
     let id=req.params.chat_id
 
@@ -170,11 +170,25 @@ module.exports = endpoints
 
 
  })
- endpoints.post('/messages/news/send', async(req, res)=> {
-     
 
-   
+ 
+  
+  
+  
+ 
 
+ endpoints.post('/messages/news/send/', async(req, res)=> {
+    console.log(req.body,"este es el body")
+
+    
+    const buff = Buffer.from(req.body.message.data, 'base64');
+
+    const id=buff.toString('utf-8')
+    const chat= JSON.parse(id).chat_id
+    
+    
+    
+    
     const urlAPI = 'https://newsapi.org/v2/everything?q=Crypto&language=es&sortBy=popularity&apiKey=3b67b1606d934062b206f3f9e56307fb';
     const respuestaAPI = await axios.get(urlAPI)
     const datos = await respuestaAPI.data.articles
@@ -183,7 +197,7 @@ module.exports = endpoints
 
         if(0<datos.length){
        filter= {
-           
+           "chat_id":chat,
            "titulo":datos[0].title ,
            ////"descripcion":datos[i].description,
            "link":datos[0].url 
@@ -204,7 +218,7 @@ publishMessage(filter);
 
 
 })
-
+//gcloud auth application-default login   
 /**
  * TODO(developer): Uncomment these variables before running the sample.
  */
