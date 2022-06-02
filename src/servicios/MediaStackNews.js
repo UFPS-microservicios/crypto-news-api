@@ -24,7 +24,7 @@ res.json({datos})
   
  
 
- endpoints.post('/messages/news/send/', async(req, res)=> {
+ endpoints.post('/news/get/', async(req, res)=> {
     console.log(req.body,"este es el body")
 
     
@@ -84,7 +84,7 @@ async function publishMessage(messaging) {
 
   try {
     const messageId = await pubSubClient
-      .topic("projects/cryptobot-345516/topics/crypto-topic")
+      .topic("projects/cryptobot-345516/topics/news-topic")
       .publishMessage({data:dataBuffer});
     console.log(`Message ${messageId} published.`);
   } catch (error) {
