@@ -22,7 +22,9 @@ res.json({datos})
     res.json({"mensaje":"no hay datos"})
 })
   
- 
+endpoints.get('/prueba', async (req, res) =>{
+  res.json({mensaje: 'API funcionando bien :D'})
+})
 
  endpoints.post('/news/get/', async(req, res)=> {
     console.log(req.body,"este es el body")
